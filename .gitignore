@@ -1,0 +1,5 @@
+certs/*
+!README.md
+datos/config
+datos/data
+datos/logs

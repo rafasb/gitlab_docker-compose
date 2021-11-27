@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  web:
+    image: 'gitlab/gitlab-ce:14.3.5-ce.0'
+    restart: always
+    hostname: '${FQDNHOSTNAME}'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'https://${FQDNHOSTNAME}:8929'
+        gitlab_rails['gitlab_shell_ssh_port'] = 2224
+        registry_external_url 'https://${FQDNHOSTNAME}'
+        registry_nginx['ssl_certificate'] = "/etc/gitlab/ssl/${FQDNHOSTNAME}.crt"
+        registry_nginx['ssl_certificate_key'] = "/etc/gitlab/ssl/${FQDNHOSTNAME}.key"
+      GITLAB_HOME: /opt/gitlab
+    ports:
+      - '8929:8929'
+      - '2224:22'
+      - '443:443'
+      - '5000:5000'
+    volumes:
+      - '${GITLAB_HOME}/config:/etc/gitlab'
+      - '${GITLAB_HOME}/logs:/var/log/gitlab'
+      - '${GITLAB_HOME}/data:/var/opt/gitlab'
+      - './certs/${FQDNHOSTNAME}.crt:/etc/gitlab/ssl/${FQDNHOSTNAME}.crt'
+      - './certs/${FQDNHOSTNAME}.key:/etc/gitlab/ssl/${FQDNHOSTNAME}.key'
