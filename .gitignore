@@ -3,3 +3,4 @@ certs/*
 datos/config
 datos/data
 datos/logs
+.env

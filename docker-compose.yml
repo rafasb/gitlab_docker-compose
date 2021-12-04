@@ -24,3 +24,4 @@ services:
       - '${GITLAB_HOME}/data:/var/opt/gitlab'
       - './certs/${FQDNHOSTNAME}.crt:/etc/gitlab/ssl/${FQDNHOSTNAME}.crt'
       - './certs/${FQDNHOSTNAME}.key:/etc/gitlab/ssl/${FQDNHOSTNAME}.key'
+      
